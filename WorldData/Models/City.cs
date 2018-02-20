@@ -47,13 +47,71 @@ namespace WorldDataProgram.Models
     return _population;
   }
 
+  public void SetPopulation(int population)
+  {
+    _population = population;
+  }
+
+
+  // public static List<City> FilterByCountryCode()
+  // {
+  //   List<City> allCities = new List<City> {};
+  //   MySqlConnection conn = DB.Connection();
+  //   conn.Open();
+  //   MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+  //   cmd.CommandText = @"SELECT * FROM city WHERE  = " ;
+  //   MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+  //   while(rdr.Read())
+  //   {
+  //     int id = rdr.GetInt32(0);
+  //     string name = rdr.GetString(1);
+  //     string countryCode = rdr.GetString(2);
+  //     string district = rdr.GetString(3);
+  //     int population = rdr.GetInt32(4);
+  //     City newCity = new City(id, name, countryCode, district, population);
+  //     allCities.Add(newCity);
+  //   }
+  //   conn.Close();
+  //   if (conn !=null)
+  //   {
+  //     conn.Dispose();
+  //   }
+  //   return allCities;
+  // }
+
+  public static List<City> GetMostPopulous(int inputPopulation)
+  {
+    List<City> allCities = new List<City> {};
+    MySqlConnection conn = DB.Connection();
+    conn.Open();
+    MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+    cmd.CommandText = @"SELECT * FROM city WHERE population > '" + inputPopulation + "' ORDER BY population DESC;";
+    MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+    while(rdr.Read())
+    {
+      int id = rdr.GetInt32(0);
+      string name = rdr.GetString(1);
+      string countryCode = rdr.GetString(2);
+      string district = rdr.GetString(3);
+      int population = rdr.GetInt32(4);
+      City newCity = new City(id, name, countryCode, district, population);
+      allCities.Add(newCity);
+    }
+    conn.Close();
+    if (conn !=null)
+    {
+      conn.Dispose();
+    }
+    return allCities;
+  }
+
   public static List<City> GetAll()
   {
     List<City> allCities = new List<City> {};
     MySqlConnection conn = DB.Connection();
     conn.Open();
     MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-    cmd.CommandText = @"SELECT * FROM city;";
+    cmd.CommandText = @"SELECT * FROM city ;";
     MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
     while(rdr.Read())
     {

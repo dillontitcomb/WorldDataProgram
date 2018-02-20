@@ -3,21 +3,24 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="~/css/styles.css" />
-    <title>Repeat Counter</title>
+    <title>city-data</title>
   </head>
 	<body>
 		<div class="container">
 			<div class="jumbotron">
 				<h1>World Data!</h1>
-			</div>
+        <h3>Choose a number and get all cities with a larger population.</h3>
+          <form class="form-control" action="/" method="post">
+            <label for="population"></label>
+            <input type="number" name="population">
+            <button type="submit" class="btn btn-success">Filter by Population</button>
+          </form>
+      </div>
       @if(Model!=null)
       {
         foreach (var city in Model)
         {
-          <h3>@city.getId()</h3>
           <h3>@city.getName()</h3>
-          <h3>@city.getCountryCode()</h3>
-          <h3>@city.getDistrict()</h3>
           <h3>@city.getPopulation()</h3>
         }
       }

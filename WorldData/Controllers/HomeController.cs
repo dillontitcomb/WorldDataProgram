@@ -9,8 +9,14 @@ namespace WorldDataProgram.Controllers
         [HttpGet("/")]
         public ActionResult Index()
         {
-          List<City> newList = City.GetAll();
-          return View(newList);
+          return View();
+        }
+        [HttpPost("/")]
+        public ActionResult GetPopulation()
+        {
+          int cityPopulation = int.Parse(Request.Form["population"]);
+          List<City> newList = City.GetMostPopulous(cityPopulation);
+          return View("Index", newList);
         }
     }
 }
