@@ -1,0 +1,4 @@
+/Users/Guest/Desktop/WorldData.Solutions/WorldData/bin/Debug/netcoreapp1.1/WorldData.deps.json
+/Users/Guest/Desktop/WorldData.Solutions/WorldData/bin/Debug/netcoreapp1.1/WorldData.runtimeconfig.json
+/Users/Guest/Desktop/WorldData.Solutions/WorldData/bin/Debug/netcoreapp1.1/WorldData.runtimeconfig.dev.json
+/Users/Guest/Desktop/WorldData.Solutions/WorldData/obj/Debug/netcoreapp1.1/WorldData.AssemblyInfo.cs
