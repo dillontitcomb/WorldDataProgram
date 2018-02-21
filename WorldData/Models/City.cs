@@ -45,28 +45,28 @@ namespace WorldDataProgram.Models
   {
     return _name;
   }
-
-  public void Save()
-  {
-    MySqlConnection conn = DB.Connection();
-    conn.Open();
-
-    var cmd = conn.CreateCommand() as MySqlCommand;
-    cmd.CommandText = @"INSERT INTO 'city' ('name') VALUES (@CityName);";
-
-    MySqlParameter newCityName = new MySqlParameter();
-    newCityName.ParameterName = "@CityName";
-    newCityName.Value = this._name;
-    cmd.Parameters.Add(newCityName);
-
-    cmd.ExecuteNonQuery();
-
-    conn.Close();
-    if (conn != null)
-    {
-      conn.Dispose();
-    }
-  }
+  // 
+  // public void Save()
+  // {
+  //   MySqlConnection conn = DB.Connection();
+  //   conn.Open();
+  //
+  //   var cmd = conn.CreateCommand() as MySqlCommand;
+  //   cmd.CommandText = @"INSERT INTO 'city' ('name') VALUES (@CityName);";
+  //
+  //   MySqlParameter newCityName = new MySqlParameter();
+  //   newCityName.ParameterName = "@CityName";
+  //   newCityName.Value = this._name;
+  //   cmd.Parameters.Add(newCityName);
+  //
+  //   cmd.ExecuteNonQuery();
+  //
+  //   conn.Close();
+  //   if (conn != null)
+  //   {
+  //     conn.Dispose();
+  //   }
+  // }
   public string GetCountryCode()
   {
     return _countryCode;
