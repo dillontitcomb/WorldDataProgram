@@ -22,62 +22,86 @@ namespace WorldDataProgram.Models
     _population = population;
   }
 
-  public int getId()
+  public override bool Equals(System.Object otherCity)
+  {
+    if (!(otherCity is City))
+    {
+      return false;
+    }
+    else
+    {
+      City newCity = (City) otherCity;
+      bool descriptionEquality = (this.GetName() == newCity.GetName());
+      return (descriptionEquality);
+    }
+  }
+
+  public int GetId()
   {
     return _id;
   }
 
-  public string getName()
+  public string GetName()
   {
     return _name;
   }
 
-  public string getCountryCode()
+  public void Save()
+  {
+    MySqlConnection conn = DB.Connection();
+    conn.Open();
+
+    var cmd = conn.CreateCommand() as MySqlCommand;
+    cmd.CommandText = @"INSERT INTO 'city' ('name') VALUES (@CityName);";
+
+    MySqlParameter newCityName = new MySqlParameter();
+    newCityName.ParameterName = "@CityName";
+    newCityName.Value = this._name;
+    cmd.Parameters.Add(newCityName);
+
+    cmd.ExecuteNonQuery();
+
+    conn.Close();
+    if (conn != null)
+    {
+      conn.Dispose();
+    }
+  }
+  public string GetCountryCode()
   {
     return _countryCode;
   }
 
-  public string getDistrict()
+  public string GetDistrict()
   {
     return _district;
   }
 
-  public int getPopulation()
+  public int GetPopulation()
   {
     return _population;
   }
-
   public void SetPopulation(int population)
   {
     _population = population;
   }
 
+  public static void DeleteAll()
+  {
+    MySqlConnection conn = DB.Connection();
+    conn.Open();
 
-  // public static List<City> FilterByCountryCode()
-  // {
-  //   List<City> allCities = new List<City> {};
-  //   MySqlConnection conn = DB.Connection();
-  //   conn.Open();
-  //   MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-  //   cmd.CommandText = @"SELECT * FROM city WHERE  = " ;
-  //   MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-  //   while(rdr.Read())
-  //   {
-  //     int id = rdr.GetInt32(0);
-  //     string name = rdr.GetString(1);
-  //     string countryCode = rdr.GetString(2);
-  //     string district = rdr.GetString(3);
-  //     int population = rdr.GetInt32(4);
-  //     City newCity = new City(id, name, countryCode, district, population);
-  //     allCities.Add(newCity);
-  //   }
-  //   conn.Close();
-  //   if (conn !=null)
-  //   {
-  //     conn.Dispose();
-  //   }
-  //   return allCities;
-  // }
+    var cmd = conn.CreateCommand() as MySqlCommand;
+    cmd.CommandText = @"DELETE FROM city;";
+
+    cmd.ExecuteNonQuery();
+
+    conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
 
   public static List<City> GetMostPopulous(int inputPopulation)
   {
